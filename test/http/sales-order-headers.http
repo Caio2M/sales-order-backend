@@ -47,3 +47,21 @@ Content-Type: application/json
 {
    "modifiedBy": "teste",
 }
+
+###
+
+# Buscar todos os pedidos maiores ou iguais a 2 milhões
+
+GET http://{{route}}/SalesOrderHeaders?$filter=totalAmount ge 2000000
+
+###
+
+# Buscar todos os pedidos menores ou iguais a 200k
+
+GET http://{{route}}/SalesOrderHeaders?$filter=totalAmount le 200000
+
+###
+
+# Expandindo items, produtos e customers
+
+GET http://{{route}}/SalesOrderHeaders?$expand=items($expand=product),customer
