@@ -84,3 +84,8 @@ GET http://{{route}}/SalesOrderHeaders/$count
 
 GET http://{{route}}/SalesOrderHeaders?$skip=5&$top=5
 
+###
+
+# Buscando dados com $search
+
+GET http://{{route}}/SalesOrderHeaders?$search=6qjv4

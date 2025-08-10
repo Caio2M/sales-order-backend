@@ -32,3 +32,9 @@ Content-Type: application/json
    "lastName": "Melo",
    "email": "caio.melo@lab2dev.com"
 }
+
+###
+
+# Buscando dados com $search
+
+GET http://{{route}}/Customers?$search=firstName-2
