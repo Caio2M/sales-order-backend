@@ -1,0 +1,33 @@
+@route=localhost:4004/odata/v4/main
+@id=74c636c6-53f3-4489-b23c-41e4aca060bb
+
+GET http://{{route}}/Products
+Content-Type: application/json
+
+###
+
+POST http://{{route}}/Products
+Content-Type: application/json
+
+{
+    "id": "{{id}}",
+    "name": "teste produto",
+    "price": 14.30
+}
+
+###
+
+DELETE http://{{route}}/Products(id='{{id}}')
+Content-Type: application/json
+
+###
+
+
+PATCH http://{{route}}/Products(id='{{id}}')
+Content-Type: application/json
+
+{
+    "id": "{{id}}",
+    "name": "teste produto",
+    "price": 12.30
+}
