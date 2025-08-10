@@ -38,3 +38,9 @@ Content-Type: application/json
 # Buscando dados com $search
 
 GET http://{{route}}/Customers?$search=firstName-2
+
+###
+
+# ordernando dados com $orderby
+
+GET http://{{route}}/Customers?$orderby=firstName asc
