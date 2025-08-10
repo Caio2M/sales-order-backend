@@ -72,3 +72,15 @@ GET http://{{route}}/SalesOrderHeaders?$expand=items($expand=product),customer
 
 GET http://{{route}}/SalesOrderHeaders?$select=id,customer
 
+###
+
+# Descobrindo a aquantidade de registros
+
+GET http://{{route}}/SalesOrderHeaders/$count
+
+###
+
+# Paginando os registros
+
+GET http://{{route}}/SalesOrderHeaders?$skip=5&$top=5
+
