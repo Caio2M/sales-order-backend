@@ -1,0 +1,34 @@
+@route=localhost:4004/odata/v4/main
+@id=d28eb7cf-2467-452e-8065-97754063847a
+
+GET http://{{route}}/Customers
+Content-Type: application/json
+
+###
+
+POST http://{{route}}/Customers
+Content-Type: application/json
+
+{
+    "id": "{{id}}",
+    "firstName": "Caio",
+    "lastName": "Melo",
+    "email": "caio.melo@lab2dev.com"
+}
+
+###
+
+DELETE http://{{route}}/Customers(id='{{id}}')
+Content-Type: application/json
+
+###
+
+
+PATCH http://{{route}}/Customers(id='{{id}}')
+Content-Type: application/json
+
+{
+   "firstName": "Caio",  
+   "lastName": "Melo",
+   "email": "caio.melo@lab2dev.com"
+}
