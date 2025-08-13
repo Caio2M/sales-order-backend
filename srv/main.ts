@@ -1,15 +1,12 @@
-import { Customer, Customers } from '@models/sales'
+import { Service } from '@sap/cds'
+import { Customers } from '@models/sales'
 
-const customer: Customer = {
-    email: "teste@teste.com",
-    firstName: "Caio",
-    lastName: "Melo",
-    id: "1234"
+export default (service: Service) => {
+    service.after('READ', 'Customers', (results: Customers) => {
+        results.forEach(customer => {
+            if (!customer.email?.includes('@')) {
+                customer.email = `${customer.email}@gmail.com`
+            }
+        })
+    })
 }
-
-const customers: Customers = [customer]
-
-function teste (value: string) {
-    console.log(value)
-}
-teste('1234yarn ')
