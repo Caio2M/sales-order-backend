@@ -12,7 +12,6 @@ export default (service: Service) => {
 
     service.before('CREATE', 'SalesOrderHeaders', async (request: Request) => {
         const params = request.data;
-        const items: SalesOrderItems = params.items;
         if (!params.customer_id) {
             return request.reject(400, 'Invalid customer')
         }
@@ -27,7 +26,18 @@ export default (service: Service) => {
         const productsIds: string[] = params.items.map((item: SalesOrderItem) => item.product_id);
         const productsQuery = SELECT.from('sales.Products').where({ id: productsIds });
         const products: Products = await cds.run(productsQuery);
-        for (const item of items) {
+
+        const productsItems: SalesOrderItems = params.items.reduce((acc: SalesOrderItems, curr: SalesOrderItem) => {
+            const existing = acc.find(item => item.product_id === curr.product_id);
+            if (existing && existing?.quantity) {
+                existing.quantity += curr.quantity || 0;
+            } else {
+                acc.push({ product_id: curr.product_id, quantity: curr.quantity });
+            }
+            return acc;
+        }, []);
+
+        for (const item of productsItems) {
             const dbProduct = products.find(product => product.id === item.product_id)
             if (!dbProduct) {
                 return request.reject(404, `Product ${item.product_id} was not found`);
@@ -35,7 +45,11 @@ export default (service: Service) => {
             if (dbProduct.stock === 0) {
                 return request.reject(400, `Product ${dbProduct.name}(${dbProduct.id}) has no stock`);
             }
+            if (Number(dbProduct.stock) < Number(item.quantity)) {
+                return request.reject(400, `Product ${dbProduct.name}(${dbProduct.id}) has insufficient stock. Requested: ${item.quantity}, Available: ${dbProduct.stock}.`);
+            }
         }
+
     })
 
     service.after('CREATE', 'SalesOrderHeaders', async (results: SalesOrderHeaders) => {
