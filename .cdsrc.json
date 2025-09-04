@@ -6,6 +6,27 @@
                     "database": ":memory:"
                 },
                 "kind": "sqlite"
+            },
+            "auth": {
+                "kind": "basic",
+                "users": {
+                    "caio": {
+                        "password": "inicial@12345",
+                        "roles": ["admin"],
+                        "attr": {
+                            "id": "1",
+                            "groups": ["grupo1", "grupo2"]
+                        }
+                    },
+                     "pedro": {
+                        "password": "inicial@12345",
+                        "roles": ["read_only_user"],
+                        "attr": {
+                            "id": "2",
+                            "groups": ["grupo1"]
+                        }
+                    }
+                }
             }
         }
     }
