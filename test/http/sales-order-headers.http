@@ -12,11 +12,13 @@
 @productId2=12875125-96e7-4c7f-8280-cabfd164ca5c
 
 GET http://{{route}}/SalesOrderHeaders?$filter=id eq '{{id}}'&$expand=items
+Authorization: Basic pedro:inicial@12345
 Content-Type: application/json
 
 ###
 
 POST http://{{route}}/SalesOrderHeaders
+Authorization: Basic caio:inicial@12345
 Content-Type: application/json
 
 {
@@ -44,12 +46,14 @@ Content-Type: application/json
 ###
 
 DELETE http://{{route}}/SalesOrderHeaders(id='{{id}}')
+Authorization: Basic caio:inicial@12345
 Content-Type: application/json
 
 ###
 
 
 PUT http://{{route}}/SalesOrderHeaders(id='{{id}}')
+Authorization: Basic caio:inicial@12345
 Content-Type: application/json
 
 {
@@ -61,39 +65,46 @@ Content-Type: application/json
 # Buscar todos os pedidos maiores ou iguais a 2 milhões
 
 GET http://{{route}}/SalesOrderHeaders?$filter=totalAmount ge 2000000
+Authorization: Basic caio:inicial@12345
 
 ###
 
 # Buscar todos os pedidos menores ou iguais a 200k
 
 GET http://{{route}}/SalesOrderHeaders?$filter=totalAmount le 200000
+Authorization: Basic caio:inicial@12345
 
 ###
 
 # Expandindo items, produtos e customers
 
 GET http://{{route}}/SalesOrderHeaders?$expand=items($expand=product),customer
+Authorization: Basic caio:inicial@12345
 
 ###
 
 # Selecionar somente customer e id do sales order header
 
 GET http://{{route}}/SalesOrderHeaders?$select=id,customer
+Authorization: Basic caio:inicial@12345
 
 ###
 
 # Descobrindo a aquantidade de registros
 
 GET http://{{route}}/SalesOrderHeaders/$count
+Authorization: Basic caio:inicial@12345
 
 ###
 
 # Paginando os registros
 
 GET http://{{route}}/SalesOrderHeaders?$skip=5&$top=5
+Authorization: Basic caio:inicial@12345
 
 ###
 
 # Buscando dados com $search
 
 GET http://{{route}}/SalesOrderHeaders?$search=6qjv4
+Authorization: Basic caio:inicial@12345
