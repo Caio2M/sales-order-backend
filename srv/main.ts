@@ -1,10 +1,9 @@
 import cds, { Service, Request } from '@sap/cds'
 import { Customers, Product, Products, SalesOrderHeaders, SalesOrderItem, SalesOrderItems } from '@models/sales'
-import { request } from 'http';
 
 export default (service: Service) => {
      service.before('READ', '*', (request: Request) => {
-        if (!request.user.is('read_only_user')) {
+        if (!request.user.is('read_only_user') && !request.user.is('admin')) {
             return request.reject(403, 'Não autorizado');
         }
     });
@@ -23,6 +22,7 @@ export default (service: Service) => {
 
     service.before('CREATE', 'SalesOrderHeaders', async (request: Request) => {
         const params = request.data;
+        const items:SalesOrderItem[] = params.items;
         if (!params.customer_id) {
             return request.reject(400, 'Invalid customer')
         }
@@ -60,6 +60,11 @@ export default (service: Service) => {
                 return request.reject(400, `Product ${dbProduct.name}(${dbProduct.id}) has insufficient stock. Requested: ${item.quantity}, Available: ${dbProduct.stock}.`);
             }
         }
+        let totalAmount = 0;
+        items.forEach(item => {
+            totalAmount += (item.price as number) * (item.quantity as number);
+        });
+        request.data.totalAmount = totalAmount;
 
     })
 

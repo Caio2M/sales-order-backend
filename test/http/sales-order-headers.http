@@ -24,7 +24,6 @@ Content-Type: application/json
 {
     "id": "{{id}}",
     "customer_id": "{{customerId1}}",
-    "totalAmount": 390,
     "items": [
         {
             "id": "31644a54-a972-47dd-88d7-2371ad086513",
